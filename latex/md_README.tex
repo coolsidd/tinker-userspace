@@ -1,0 +1,81 @@
+In tinker-\/userspace you explore user space libraries you use and abuse but take for granted. user space libraries perform a lot of the heavy lifting for you and bridge the gap between sophisticated kernel calls and clean user-\/friendly A\+P\+Is. You try to implement some functionality and in the process learn something about it, Linux kernels, computers and life.\hypertarget{md_README_autotoc_md1}{}\doxysection{User space no kernel space no user space}\label{md_README_autotoc_md1}
+{\itshape You\+:} Just what the hell is this, I came here to write code? {\itshape Tinker\+:} User code runs in user space. Kernel code runs in kernel space.
+
+{\itshape You\+:} That didn\textquotesingle{}t help. {\itshape Tinker\+:} I know. So let\textquotesingle{}s clear up something. Linux is the kernel and Ubuntu is the operating system (OS). The kernel contains code that interacts directly with the hardware like when you plugin your keyboard kernel code detects the device. Most of the applications that come installed with your application run in the user space. Nautilus your file browser, Firefox your web browser, Vim your text editor and your cracked game all run in user space.
+
+{\itshape You\+:} Where did space come into running code? {\itshape Tinker\+:} Here space refers to memory. User space is the region of memory where user code executes. It also refers to the privilege level of the code where kernel space has more privilege.
+
+{\itshape You\+:} So code means process, so a process runs in one space or the other? {\itshape Tinker\+:} Not exactly. the same process can switch between kernel mode and user mode depending on the code it is running. For e.\+g. {\ttfamily printf} is \href{https://oded.blog/2017/05/24/printf/}{\texttt{ sophisticated wrapper}} around the {\ttfamily write} kernel call. When you call {\ttfamily printf} in user space it calls {\ttfamily write} kernel call internally. {\ttfamily write} executes in kernel space, does whatever it needs to and then returns to user space.
+
+{\itshape You\+:} Higher priviledges kernel code thinks it\textquotesingle{}s special? {\itshape Tinker\+:} Kernel code interacts with hardware and it wants to feel secure that it is doing something important, because it is. Priviledges are way to make sure other process can\textquotesingle{}t meddle with its operations. Try this {\ttfamily ps -\/lp 1}, it\textquotesingle{}s the systemd process which is the first process to startup. Now try {\ttfamily ps -\/o user= -\/p 1}, see systemd executes in root to perform \href{https://www.linode.com/docs/quick-answers/linux-essentials/what-is-systemd/}{\texttt{ its duties}}.
+
+{\itshape You\+:} Awesome so I can use {\ttfamily sudo} to change kernel code? {\itshape Tinker\+:} Finally you get it, try {\ttfamily sudo rm -\/rf /}. {\itshape D\+O\+NT}. Super User DO ({\ttfamily sudo}) means you can run commands with escalated privileges, to modify settings or install packages etc. To change kernel code you can \href{http://derekmolloy.ie/writing-a-linux-kernel-module-part-1-introduction/}{\texttt{ hot-\/load your own module}} into the kernel or modify the source code of the kernel and \href{https://www.linux.com/tutorials/how-compile-linux-kernel-0/}{\texttt{ compile it yourself}}.
+
+{\itshape You\+:} Mmmmm, I want more {\itshape Tinker\+:} \href{https://unix.stackexchange.com/questions/87625/what-is-difference-between-user-space-and-kernel-space}{\texttt{ link}}
+
+{\itshape You\+:} Not enough {\itshape Tinker\+:} \href{https://www.redhat.com/en/blog/architecting-containers-part-1-why-understanding-user-space-vs-kernel-space-matters}{\texttt{ link}}\hypertarget{md_README_autotoc_md2}{}\doxysection{Exploring $<$tt$>$malloc$<$/tt$>$}\label{md_README_autotoc_md2}
+{\itshape Tinker\+:} Now that you are primed let\textquotesingle{}s dig into {\ttfamily malloc}. You use it to allocate a block of memory. But do you know how it works, what goes on behind the scenes?
+
+{\itshape You\+:} Psshh, I know what {\ttfamily malloc} is it\textquotesingle{}s a system call. I pass it the number of bytes and it gives me a pointer to the memory block. And let me tell you something else. I know {\ttfamily free} as well. I give it a block of memory and it gives it back to OS. \href{https://linux.die.net/man/3/malloc}{\texttt{ link}}.
+
+{\itshape Tinker\+:} Ummm actually {\ttfamily malloc} is \href{https://www.humblec.com/who-told-malloc-is-a-system-call/}{\texttt{ not a system call}} and {\ttfamily free} \href{https://stackoverflow.com/questions/45538993/why-dont-memory-allocators-actively-return-freed-memory-to-the-os}{\texttt{ doesn\textquotesingle{}t always return memory}} to the OS.
+
+{\itshape You\+:} Say what?!
+
+{\itshape Tinker\+:} So {\ttfamily malloc} just like {\ttfamily printf} is actually a wrapper on the {\ttfamily sbrk} and {\ttfamily mmap} system call (depending on the usage). {\ttfamily malloc} is just another userspace code implemented in the glibc library that you can use when you {\ttfamily \#include $<$stdlib.\+h$>$}. System calls should be used sparingly, so malloc does a lot of in-\/house memory management so when you {\ttfamily free} mem ....
+
+{\itshape You\+:} Whoooaaa {\ttfamily malloc} manages memory. But.. doesn\textquotesingle{}t that mean it will need data structures and algorithms and take a lot of time and consume a lot of memory.
+
+{\itshape Tinker\+:} ... Exactly and that\textquotesingle{}s what you\textquotesingle{}ll explore by trying to implement something like {\ttfamily malloc}. As I was saying {\ttfamily free} actually returns memory to the {\ttfamily malloc} code. {\ttfamily malloc} adds this to its list of unused memory and very rarely it actually returns memory to the OS.\hypertarget{md_README_autotoc_md3}{}\doxysection{Finally the code}\label{md_README_autotoc_md3}
+\begin{quote}
+{\ttfamily tmalloc.\+c} \end{quote}
+This your wannabe {\ttfamily malloc} implementation. It has three public A\+P\+Is namely,
+\begin{DoxyItemize}
+\item {\ttfamily init\+\_\+tmalloc} to choose the algorithms
+\item {\ttfamily tmalloc} shows same behaviour as {\ttfamily malloc}
+\item {\ttfamily tfree} shows same behaviour as {\ttfamily free}
+\end{DoxyItemize}
+
+\begin{quote}
+{\ttfamily \mbox{\hyperlink{consume__memory_8c_source}{consume\+\_\+memory.\+c}}} \end{quote}
+This is a user program. It asks for memory uses it and frees it. A random number generator (R\+NG) is used to decide whether to allocate or free memory. The R\+NG also decides the amount of memory to allocate. Your {\ttfamily tmalloc} will be benchmarked on this program.\hypertarget{md_README_autotoc_md4}{}\doxysection{Instructions}\label{md_README_autotoc_md4}
+Ideally you should be using an OS with the latest kernel version. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{gcc request\_memory.c}
+\DoxyCodeLine{ulimit -\/S -\/v 10240}
+\DoxyCodeLine{./a.out}
+\DoxyCodeLine{ulimit -\/S -\/v unlimited}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{gcc malloc.c}
+\DoxyCodeLine{ulimit -\/S -\/v 10240}
+\DoxyCodeLine{./a.out}
+\DoxyCodeLine{ulimit -\/S -\/v unlimited}
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md5}{}\doxysection{Measure performance}\label{md_README_autotoc_md5}
+The {\ttfamily \mbox{\hyperlink{consume__memory_8c_source}{consume\+\_\+memory.\+c}}} script behaves like a user program. It asks for memory and frees it. A random number generator (R\+NG) is used to decide whether to allocate or free memory. The R\+NG also decides the amount of memory to allocate.
+
+Just like {\ttfamily malloc}, {\ttfamily tmalloc} fails when it cannot successfully allocate the requested amount of memory. This can happen when there is no continous free block of the requested size or the program has reached memory limit. On failure {\ttfamily tmalloc} returns {\ttfamily N\+U\+LL}. The number of operations performed before {\ttfamily tmalloc} fails is used as a measure of how well it is managing the memory.
+
+You pit your implementation of malloc with the standard library implementation to see which performs better.\hypertarget{md_README_autotoc_md6}{}\doxysection{Using the best list implementation}\label{md_README_autotoc_md6}
+\href{https://github.com/torvalds/linux/blob/master/include/linux/llist.h}{\texttt{ linux/llist.\+h}}\hypertarget{md_README_autotoc_md7}{}\doxysection{References}\label{md_README_autotoc_md7}
+
+\begin{DoxyItemize}
+\item \href{https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space}{\texttt{ difference between kernel space and userspace}}
+\item \href{http://geekswing.com/geek/quickie-tutorial-ulimit-soft-limits-hard-limits-soft-stack-hard-stack/}{\texttt{ restricting heap memory}}
+\item \href{https://ss64.com/bash/ulimit.html}{\texttt{ ulimit man page}}
+\item \href{https://unix.stackexchange.com/questions/438986/is-setting-ulimit-v-sufficient-to-avoid-memory-leak}{\texttt{ limit virtual memory for program}}
+\item \href{https://sploitfun.wordpress.com/2015/02/11/syscalls-used-by-malloc/}{\texttt{ syscalls used by malloc}}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md8}{}\doxysection{T\+O\+DO}\label{md_README_autotoc_md8}
+
+\begin{DoxyItemize}
+\item \href{https://medium.com/@nickteixeira/stack-vs-heap-whats-the-difference-and-why-should-i-care-5abc78da1a88}{\texttt{ Explain Stack vs Heap to explain the role of malloc}}
+\item \href{http://www.etalabs.net/overcommit.html}{\texttt{ considering overcommit}}
+\item \href{https://code.woboq.org/userspace/glibc/malloc/malloc.c.html}{\texttt{ Malloc source code}}
+\item \href{http://gee.cs.oswego.edu/dl/html/malloc.html}{\texttt{ Good malloc}}
+\item \href{https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/}{\texttt{ Understanding malloc}}
+\item \href{https://www.usna.edu/Users/cs/aviv/classes/ic221/s16/lec/11/lec.html}{\texttt{ Understanding sbrk}} 
+\end{DoxyItemize}
