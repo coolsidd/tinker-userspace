@@ -1,0 +1,67 @@
+.TH "block_hdr" 3 "Wed Oct 30 2019" "tinker-userspace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+block_hdr
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct ll_head * \fBprev\fP"
+.br
+.ti -1c
+.RI "struct ll_head * \fBnext\fP"
+.br
+.ti -1c
+.RI "int \fBsize\fP"
+.br
+.ti -1c
+.RI "bool \fBblock_start\fP"
+.br
+.ti -1c
+.RI "bool \fBallocated\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBblock_hdr\fP struct represents the structure of the block header\&.
+.PP
+A block header stores additional information about the newly allocated block\&. Part of this information helps to keep the track of the block size so that free and realloc can work properly\&. 
+.PP
+\fBSee also\fP
+.RS 4
+https://stackoverflow.com/questions/7717296/malloc-header-contents 
+.RE
+.PP
+
+.PP
+Definition at line 35 of file malloc\&.c\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "bool block_hdr::allocated"
+
+.PP
+Definition at line 40 of file malloc\&.c\&.
+.SS "bool block_hdr::block_start"
+
+.PP
+Definition at line 39 of file malloc\&.c\&.
+.SS "struct ll_head* block_hdr::next"
+
+.PP
+Definition at line 37 of file malloc\&.c\&.
+.SS "struct ll_head* block_hdr::prev"
+
+.PP
+Definition at line 36 of file malloc\&.c\&.
+.SS "int block_hdr::size"
+
+.PP
+Definition at line 38 of file malloc\&.c\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for tinker-userspace from the source code\&.

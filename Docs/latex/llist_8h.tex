@@ -1,0 +1,156 @@
+\hypertarget{llist_8h}{}\doxysection{llist.\+h File Reference}
+\label{llist_8h}\index{llist.h@{llist.h}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structllhead}{llhead}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{llist_8h_a85a5f21b921ffeac9696c87fde241d27}{L\+L\+\_\+\+I\+N\+IT}}(N)~((N)-\/$>$next = (N)-\/$>$prev = (N))
+\item 
+\#define \mbox{\hyperlink{llist_8h_adb4f4e8f7091d4b1b8a68c3c54c27e92}{L\+L\+\_\+\+H\+E\+AD}}(H)~struct \mbox{\hyperlink{structllhead}{llhead}} H = \{ \&H, \&H \}
+\item 
+\#define \mbox{\hyperlink{llist_8h_a7d6598c54cf2787618dc10dbadb05e30}{L\+L\+\_\+\+E\+N\+T\+RY}}(P,  T,  N)~((T $\ast$)((char $\ast$)(P) -\/ offsetof(T, N)))
+\item 
+\#define \mbox{\hyperlink{llist_8h_ac81f789231d8f82b2ba740b7aa8eb319}{L\+L\+\_\+\+A\+DD}}(H,  N)
+\item 
+\#define \mbox{\hyperlink{llist_8h_a97c1dec554c6803788fcee6d9c73ad3f}{L\+L\+\_\+\+T\+A\+IL}}(H,  N)
+\item 
+\#define \mbox{\hyperlink{llist_8h_a1b7a6cb2d42d44f0df64fe81809365c5}{L\+L\+\_\+\+D\+EL}}(N)
+\item 
+\#define \mbox{\hyperlink{llist_8h_a888a3c10251469f8486aa0b0020d80cd}{L\+L\+\_\+\+E\+M\+P\+TY}}(N)~((N)-\/$>$next == (N))
+\item 
+\#define \mbox{\hyperlink{llist_8h_a205c2ef7cc140875b0a5ddd21a4e583c}{L\+L\+\_\+\+F\+O\+R\+E\+A\+CH}}(H,  N)~for (N = (H)-\/$>$next; N != (H); N = (N)-\/$>$next)
+\item 
+\#define \mbox{\hyperlink{llist_8h_ac2d69ae1311632aae5a790cd90c4bb28}{L\+L\+\_\+\+F\+O\+R\+E\+A\+C\+H\+\_\+\+S\+A\+FE}}(H,  N,  T)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{llist_8h_ac81f789231d8f82b2ba740b7aa8eb319}\label{llist_8h_ac81f789231d8f82b2ba740b7aa8eb319}} 
+\index{llist.h@{llist.h}!LL\_ADD@{LL\_ADD}}
+\index{LL\_ADD@{LL\_ADD}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_ADD}{LL\_ADD}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+A\+DD(\begin{DoxyParamCaption}\item[{}]{H,  }\item[{}]{N }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do} \{                                \(\backslash\)}
+\DoxyCodeLine{        ((H)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}})-\/>prev = (N);                \(\backslash\)}
+\DoxyCodeLine{        (N)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}} = ((H)-\/>next);                \(\backslash\)}
+\DoxyCodeLine{        (N)-\/>\mbox{\hyperlink{structllhead_aa4a5f3c631a8dd53dc8e78ac0ffd16f1}{prev}} = (H);                    \(\backslash\)}
+\DoxyCodeLine{        (H)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}} = (N);                    \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+
+
+Definition at line 28 of file llist.\+h.
+
+\mbox{\Hypertarget{llist_8h_a1b7a6cb2d42d44f0df64fe81809365c5}\label{llist_8h_a1b7a6cb2d42d44f0df64fe81809365c5}} 
+\index{llist.h@{llist.h}!LL\_DEL@{LL\_DEL}}
+\index{LL\_DEL@{LL\_DEL}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_DEL}{LL\_DEL}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+D\+EL(\begin{DoxyParamCaption}\item[{}]{N }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do} \{                                \(\backslash\)}
+\DoxyCodeLine{        ((N)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}})-\/>prev = ((N)-\/>\mbox{\hyperlink{structllhead_aa4a5f3c631a8dd53dc8e78ac0ffd16f1}{prev}});            \(\backslash\)}
+\DoxyCodeLine{        ((N)-\/>\mbox{\hyperlink{structllhead_aa4a5f3c631a8dd53dc8e78ac0ffd16f1}{prev}})-\/>next = ((N)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}});            \(\backslash\)}
+\DoxyCodeLine{        LL\_INIT(N);                     \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+
+
+Definition at line 44 of file llist.\+h.
+
+\mbox{\Hypertarget{llist_8h_a888a3c10251469f8486aa0b0020d80cd}\label{llist_8h_a888a3c10251469f8486aa0b0020d80cd}} 
+\index{llist.h@{llist.h}!LL\_EMPTY@{LL\_EMPTY}}
+\index{LL\_EMPTY@{LL\_EMPTY}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_EMPTY}{LL\_EMPTY}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+E\+M\+P\+TY(\begin{DoxyParamCaption}\item[{}]{N }\end{DoxyParamCaption})~((N)-\/$>$next == (N))}
+
+
+
+Definition at line 51 of file llist.\+h.
+
+\mbox{\Hypertarget{llist_8h_a7d6598c54cf2787618dc10dbadb05e30}\label{llist_8h_a7d6598c54cf2787618dc10dbadb05e30}} 
+\index{llist.h@{llist.h}!LL\_ENTRY@{LL\_ENTRY}}
+\index{LL\_ENTRY@{LL\_ENTRY}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_ENTRY}{LL\_ENTRY}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+E\+N\+T\+RY(\begin{DoxyParamCaption}\item[{}]{P,  }\item[{}]{T,  }\item[{}]{N }\end{DoxyParamCaption})~((T $\ast$)((char $\ast$)(P) -\/ offsetof(T, N)))}
+
+
+
+Definition at line 26 of file llist.\+h.
+
+\mbox{\Hypertarget{llist_8h_a205c2ef7cc140875b0a5ddd21a4e583c}\label{llist_8h_a205c2ef7cc140875b0a5ddd21a4e583c}} 
+\index{llist.h@{llist.h}!LL\_FOREACH@{LL\_FOREACH}}
+\index{LL\_FOREACH@{LL\_FOREACH}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_FOREACH}{LL\_FOREACH}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+F\+O\+R\+E\+A\+CH(\begin{DoxyParamCaption}\item[{}]{H,  }\item[{}]{N }\end{DoxyParamCaption})~for (N = (H)-\/$>$next; N != (H); N = (N)-\/$>$next)}
+
+
+
+Definition at line 53 of file llist.\+h.
+
+\mbox{\Hypertarget{llist_8h_ac2d69ae1311632aae5a790cd90c4bb28}\label{llist_8h_ac2d69ae1311632aae5a790cd90c4bb28}} 
+\index{llist.h@{llist.h}!LL\_FOREACH\_SAFE@{LL\_FOREACH\_SAFE}}
+\index{LL\_FOREACH\_SAFE@{LL\_FOREACH\_SAFE}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_FOREACH\_SAFE}{LL\_FOREACH\_SAFE}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+F\+O\+R\+E\+A\+C\+H\+\_\+\+S\+A\+FE(\begin{DoxyParamCaption}\item[{}]{H,  }\item[{}]{N,  }\item[{}]{T }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{for} (N = (H)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}}, T = (N)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}}; N != (H);            \(\backslash\)}
+\DoxyCodeLine{            N = (T), T = (N)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}})}
+
+\end{DoxyCode}
+
+
+Definition at line 55 of file llist.\+h.
+
+\mbox{\Hypertarget{llist_8h_adb4f4e8f7091d4b1b8a68c3c54c27e92}\label{llist_8h_adb4f4e8f7091d4b1b8a68c3c54c27e92}} 
+\index{llist.h@{llist.h}!LL\_HEAD@{LL\_HEAD}}
+\index{LL\_HEAD@{LL\_HEAD}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_HEAD}{LL\_HEAD}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+H\+E\+AD(\begin{DoxyParamCaption}\item[{}]{H }\end{DoxyParamCaption})~struct \mbox{\hyperlink{structllhead}{llhead}} H = \{ \&H, \&H \}}
+
+
+
+Definition at line 24 of file llist.\+h.
+
+\mbox{\Hypertarget{llist_8h_a85a5f21b921ffeac9696c87fde241d27}\label{llist_8h_a85a5f21b921ffeac9696c87fde241d27}} 
+\index{llist.h@{llist.h}!LL\_INIT@{LL\_INIT}}
+\index{LL\_INIT@{LL\_INIT}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_INIT}{LL\_INIT}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+I\+N\+IT(\begin{DoxyParamCaption}\item[{}]{N }\end{DoxyParamCaption})~((N)-\/$>$next = (N)-\/$>$prev = (N))}
+
+
+
+Definition at line 22 of file llist.\+h.
+
+\mbox{\Hypertarget{llist_8h_a97c1dec554c6803788fcee6d9c73ad3f}\label{llist_8h_a97c1dec554c6803788fcee6d9c73ad3f}} 
+\index{llist.h@{llist.h}!LL\_TAIL@{LL\_TAIL}}
+\index{LL\_TAIL@{LL\_TAIL}!llist.h@{llist.h}}
+\doxysubsubsection{\texorpdfstring{LL\_TAIL}{LL\_TAIL}}
+{\footnotesize\ttfamily \#define L\+L\+\_\+\+T\+A\+IL(\begin{DoxyParamCaption}\item[{}]{H,  }\item[{}]{N }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do} \{                                \(\backslash\)}
+\DoxyCodeLine{        ((H)-\/>\mbox{\hyperlink{structllhead_aa4a5f3c631a8dd53dc8e78ac0ffd16f1}{prev}})-\/>next = (N);                \(\backslash\)}
+\DoxyCodeLine{        (N)-\/>\mbox{\hyperlink{structllhead_aa4a5f3c631a8dd53dc8e78ac0ffd16f1}{prev}} = ((H)-\/>prev);                \(\backslash\)}
+\DoxyCodeLine{        (N)-\/>\mbox{\hyperlink{structllhead_a744d1249b286f510b43fd4de72053e2f}{next}} = (H);                    \(\backslash\)}
+\DoxyCodeLine{        (H)-\/>\mbox{\hyperlink{structllhead_aa4a5f3c631a8dd53dc8e78ac0ffd16f1}{prev}} = (N);                    \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+
+
+Definition at line 36 of file llist.\+h.
+

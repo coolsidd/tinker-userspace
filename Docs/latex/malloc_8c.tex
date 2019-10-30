@@ -1,0 +1,284 @@
+\hypertarget{malloc_8c}{}\doxysection{malloc.\+c File Reference}
+\label{malloc_8c}\index{malloc.c@{malloc.c}}
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/mman.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}llist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}malloc.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structblock__hdr}{block\+\_\+hdr}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{malloc_8c_a8fb447618db946a9e2a596d9ea18763f}{\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+O\+U\+R\+CE}}
+\item 
+\#define \mbox{\hyperlink{malloc_8c_ad99a3089c13b6f47b26b218a997fad73}{I\+N\+C\+R\+E\+M\+E\+NT}}~4096
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structblock__hdr}{block\+\_\+hdr}} \mbox{\hyperlink{malloc_8c_a6c395c36659665d6641671d8b0eed54f}{block\+\_\+hdr}}
+\item 
+typedef \mbox{\hyperlink{structblock__hdr}{block\+\_\+hdr}} $\ast$ \mbox{\hyperlink{malloc_8c_affbfc642634f0c21463274a522052b9f}{Block\+\_\+hdr}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{malloc_8c_afda3fa278952e58c69c6443389866b25}{L\+L\+\_\+\+H\+E\+AD}} (head)
+\item 
+void $\ast$ \mbox{\hyperlink{malloc_8c_adb936b6a20872ce19df10da949e81f66}{first\+\_\+fit\+\_\+block\+\_\+algo}} (int size)
+\item 
+void $\ast$ \mbox{\hyperlink{malloc_8c_a17bb47e0bde5ee6bd9a92311041a8181}{failsafe\+\_\+check\+\_\+tail\+\_\+block}} (int size)
+\item 
+void \mbox{\hyperlink{malloc_8c_a385cbf5af271a9db43e180af4a0cd3cc}{merge\+\_\+adjacent\+\_\+blocks\+\_\+algo}} (void $\ast$ptr)
+\item 
+int \mbox{\hyperlink{malloc_8c_a1028860a982d08199fbccf964f8d29ab}{request\+\_\+memory}} ()
+\item 
+void $\ast$ \mbox{\hyperlink{malloc_8c_ac4c257c6eaf5942312011d0f19a7a227}{malloc\+\_\+mem}} (void $\ast$block, int size)
+\item 
+int \mbox{\hyperlink{malloc_8c_ae849a68e55ca941cca1290c0e8827dcd}{init\+\_\+malloc}} (char $\ast$algo\+\_\+name)
+\item 
+void $\ast$ \mbox{\hyperlink{malloc_8c_a1e80be378b66b2fea0acbde8de321efe}{tmalloc}} (int size)
+\item 
+void \mbox{\hyperlink{malloc_8c_a60eba9c55074c811f5d17417df218f85}{tfree}} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$($\ast$ \mbox{\hyperlink{malloc_8c_afdbe0bbaf34557d7845ce61ab9ab4850}{mem\+\_\+block\+\_\+algo}} )(int)
+\item 
+void $\ast$($\ast$ \mbox{\hyperlink{malloc_8c_a6cb575ffd2e5680eb5c462f1dcae1234}{failsafe\+\_\+block\+\_\+algo}} )(int)
+\item 
+void($\ast$ \mbox{\hyperlink{malloc_8c_aa6ebf19df045222b31e968a896fba30f}{defrag\+\_\+block\+\_\+algo}} )(void $\ast$)
+\item 
+int \mbox{\hyperlink{malloc_8c_a6baa346e44f4c2158d2be4f9b77b8203}{ret}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{malloc_8c_a8fb447618db946a9e2a596d9ea18763f}\label{malloc_8c_a8fb447618db946a9e2a596d9ea18763f}} 
+\index{malloc.c@{malloc.c}!\_DEFAULT\_SOURCE@{\_DEFAULT\_SOURCE}}
+\index{\_DEFAULT\_SOURCE@{\_DEFAULT\_SOURCE}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{\_DEFAULT\_SOURCE}{\_DEFAULT\_SOURCE}}
+{\footnotesize\ttfamily \#define \+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+O\+U\+R\+CE}
+
+
+
+Definition at line 1 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_ad99a3089c13b6f47b26b218a997fad73}\label{malloc_8c_ad99a3089c13b6f47b26b218a997fad73}} 
+\index{malloc.c@{malloc.c}!INCREMENT@{INCREMENT}}
+\index{INCREMENT@{INCREMENT}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{INCREMENT}{INCREMENT}}
+{\footnotesize\ttfamily \#define I\+N\+C\+R\+E\+M\+E\+NT~4096}
+
+
+
+Definition at line 14 of file malloc.\+c.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{malloc_8c_a6c395c36659665d6641671d8b0eed54f}\label{malloc_8c_a6c395c36659665d6641671d8b0eed54f}} 
+\index{malloc.c@{malloc.c}!block\_hdr@{block\_hdr}}
+\index{block\_hdr@{block\_hdr}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{block\_hdr}{block\_hdr}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structblock__hdr}{block\+\_\+hdr}}  \mbox{\hyperlink{structblock__hdr}{block\+\_\+hdr}}}
+
+The \mbox{\hyperlink{structblock__hdr}{block\+\_\+hdr}} struct represents the structure of the block header.
+
+A block header stores additional information about the newly allocated block. Part of this information helps to keep the track of the block size so that free and realloc can work properly. \begin{DoxySeeAlso}{See also}
+\href{https://stackoverflow.com/questions/7717296/malloc-header-contents}{\texttt{ https\+://stackoverflow.\+com/questions/7717296/malloc-\/header-\/contents}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{malloc_8c_affbfc642634f0c21463274a522052b9f}\label{malloc_8c_affbfc642634f0c21463274a522052b9f}} 
+\index{malloc.c@{malloc.c}!Block\_hdr@{Block\_hdr}}
+\index{Block\_hdr@{Block\_hdr}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{Block\_hdr}{Block\_hdr}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{structblock__hdr}{block\+\_\+hdr}}$\ast$ \mbox{\hyperlink{malloc_8c_affbfc642634f0c21463274a522052b9f}{Block\+\_\+hdr}}}
+
+
+
+Definition at line 42 of file malloc.\+c.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{malloc_8c_a17bb47e0bde5ee6bd9a92311041a8181}\label{malloc_8c_a17bb47e0bde5ee6bd9a92311041a8181}} 
+\index{malloc.c@{malloc.c}!failsafe\_check\_tail\_block@{failsafe\_check\_tail\_block}}
+\index{failsafe\_check\_tail\_block@{failsafe\_check\_tail\_block}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{failsafe\_check\_tail\_block()}{failsafe\_check\_tail\_block()}}
+{\footnotesize\ttfamily void$\ast$ failsafe\+\_\+check\+\_\+tail\+\_\+block (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
+
+Checks if last block satisfied memory requirement
+
+Note\+: Ideally should be called after requesting more memory as newly created arena will be added to tail of blocks Returns header of the tail block if the tail block has space and is unallocated, else returns N\+U\+LL 
+
+Definition at line 92 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_adb936b6a20872ce19df10da949e81f66}\label{malloc_8c_adb936b6a20872ce19df10da949e81f66}} 
+\index{malloc.c@{malloc.c}!first\_fit\_block\_algo@{first\_fit\_block\_algo}}
+\index{first\_fit\_block\_algo@{first\_fit\_block\_algo}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{first\_fit\_block\_algo()}{first\_fit\_block\_algo()}}
+{\footnotesize\ttfamily void$\ast$ first\+\_\+fit\+\_\+block\+\_\+algo (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
+
+Function first\+\_\+fit\+\_\+block\+\_\+algo returns unallocated block of the size.
+
+Traverse all blocks and return first unallocated block that satisfies size requirement. It takes care to allocate extra space needed for the block header. Returns N\+U\+LL on failing
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em size} & The amount of size in bytes that is needed (Excluding the size of the header) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 61 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_ae849a68e55ca941cca1290c0e8827dcd}\label{malloc_8c_ae849a68e55ca941cca1290c0e8827dcd}} 
+\index{malloc.c@{malloc.c}!init\_malloc@{init\_malloc}}
+\index{init\_malloc@{init\_malloc}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{init\_malloc()}{init\_malloc()}}
+{\footnotesize\ttfamily int init\+\_\+malloc (\begin{DoxyParamCaption}\item[{char $\ast$}]{algo\+\_\+name }\end{DoxyParamCaption})}
+
+Intializes global variables and block finding algorithm
+
+Note Currently only supports \char`\"{}first\+\_\+fit\+\_\+block\+\_\+algo\char`\"{}, if function is passed invalid function name returns with -\/1 
+
+Definition at line 206 of file malloc.\+c.
+
+
+
+Referenced by main().
+
+\mbox{\Hypertarget{malloc_8c_afda3fa278952e58c69c6443389866b25}\label{malloc_8c_afda3fa278952e58c69c6443389866b25}} 
+\index{malloc.c@{malloc.c}!LL\_HEAD@{LL\_HEAD}}
+\index{LL\_HEAD@{LL\_HEAD}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{LL\_HEAD()}{LL\_HEAD()}}
+{\footnotesize\ttfamily L\+L\+\_\+\+H\+E\+AD (\begin{DoxyParamCaption}\item[{head}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{malloc_8c_ac4c257c6eaf5942312011d0f19a7a227}\label{malloc_8c_ac4c257c6eaf5942312011d0f19a7a227}} 
+\index{malloc.c@{malloc.c}!malloc\_mem@{malloc\_mem}}
+\index{malloc\_mem@{malloc\_mem}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{malloc\_mem()}{malloc\_mem()}}
+{\footnotesize\ttfamily void$\ast$ malloc\+\_\+mem (\begin{DoxyParamCaption}\item[{void $\ast$}]{block,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
+Allocate memory from given block. Mark block as allocated and break it into a new unallocated block 
+
+Definition at line 172 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_a385cbf5af271a9db43e180af4a0cd3cc}\label{malloc_8c_a385cbf5af271a9db43e180af4a0cd3cc}} 
+\index{malloc.c@{malloc.c}!merge\_adjacent\_blocks\_algo@{merge\_adjacent\_blocks\_algo}}
+\index{merge\_adjacent\_blocks\_algo@{merge\_adjacent\_blocks\_algo}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{merge\_adjacent\_blocks\_algo()}{merge\_adjacent\_blocks\_algo()}}
+{\footnotesize\ttfamily void merge\+\_\+adjacent\+\_\+blocks\+\_\+algo (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+Merge adjacent unallocated blocks
+
+Merges all the adjacent unused \char`\"{}freed\char`\"{} memory. This way larger blocks of memory are now available. 
+
+Definition at line 116 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_a1028860a982d08199fbccf964f8d29ab}\label{malloc_8c_a1028860a982d08199fbccf964f8d29ab}} 
+\index{malloc.c@{malloc.c}!request\_memory@{request\_memory}}
+\index{request\_memory@{request\_memory}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{request\_memory()}{request\_memory()}}
+{\footnotesize\ttfamily int request\+\_\+memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Request more heap memory by incrementing program break
+
+Program break represents the first location after the end of the uninitialized data segment. sbrk is a system call which increases/decreases the amount of allocated memory \begin{DoxySeeAlso}{See also}
+\href{https://en.wikipedia.org/wiki/Sbrk}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Sbrk}} 
+
+\{\href{https://stackoverflow.com/questions/6988487/what-does-the-brk-system-call-do}{\texttt{ https\+://stackoverflow.\+com/questions/6988487/what-\/does-\/the-\/brk-\/system-\/call-\/do}}\} 
+\end{DoxySeeAlso}
+
+
+Definition at line 148 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_a60eba9c55074c811f5d17417df218f85}\label{malloc_8c_a60eba9c55074c811f5d17417df218f85}} 
+\index{malloc.c@{malloc.c}!tfree@{tfree}}
+\index{tfree@{tfree}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{tfree()}{tfree()}}
+{\footnotesize\ttfamily void tfree (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+Frees given block Note\+: fails silently
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ptr} & Pointer to the block that needs to be freed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 258 of file malloc.\+c.
+
+
+
+Referenced by main().
+
+\mbox{\Hypertarget{malloc_8c_a1e80be378b66b2fea0acbde8de321efe}\label{malloc_8c_a1e80be378b66b2fea0acbde8de321efe}} 
+\index{malloc.c@{malloc.c}!tmalloc@{tmalloc}}
+\index{tmalloc@{tmalloc}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{tmalloc()}{tmalloc()}}
+{\footnotesize\ttfamily void$\ast$ tmalloc (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
+
+Tries to allocate memory of given size
+
+returns pointer to memory if successful else returns N\+U\+LL 
+
+Definition at line 230 of file malloc.\+c.
+
+
+
+Referenced by main().
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{malloc_8c_aa6ebf19df045222b31e968a896fba30f}\label{malloc_8c_aa6ebf19df045222b31e968a896fba30f}} 
+\index{malloc.c@{malloc.c}!defrag\_block\_algo@{defrag\_block\_algo}}
+\index{defrag\_block\_algo@{defrag\_block\_algo}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{defrag\_block\_algo}{defrag\_block\_algo}}
+{\footnotesize\ttfamily void($\ast$ defrag\+\_\+block\+\_\+algo) (void $\ast$)}
+
+
+
+Definition at line 21 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_a6cb575ffd2e5680eb5c462f1dcae1234}\label{malloc_8c_a6cb575ffd2e5680eb5c462f1dcae1234}} 
+\index{malloc.c@{malloc.c}!failsafe\_block\_algo@{failsafe\_block\_algo}}
+\index{failsafe\_block\_algo@{failsafe\_block\_algo}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{failsafe\_block\_algo}{failsafe\_block\_algo}}
+{\footnotesize\ttfamily void$\ast$($\ast$ failsafe\+\_\+block\+\_\+algo) (int)}
+
+
+
+Definition at line 19 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_afdbe0bbaf34557d7845ce61ab9ab4850}\label{malloc_8c_afdbe0bbaf34557d7845ce61ab9ab4850}} 
+\index{malloc.c@{malloc.c}!mem\_block\_algo@{mem\_block\_algo}}
+\index{mem\_block\_algo@{mem\_block\_algo}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{mem\_block\_algo}{mem\_block\_algo}}
+{\footnotesize\ttfamily void$\ast$($\ast$ mem\+\_\+block\+\_\+algo) (int)}
+
+
+
+Definition at line 18 of file malloc.\+c.
+
+\mbox{\Hypertarget{malloc_8c_a6baa346e44f4c2158d2be4f9b77b8203}\label{malloc_8c_a6baa346e44f4c2158d2be4f9b77b8203}} 
+\index{malloc.c@{malloc.c}!ret@{ret}}
+\index{ret@{ret}!malloc.c@{malloc.c}}
+\doxysubsubsection{\texorpdfstring{ret}{ret}}
+{\footnotesize\ttfamily int ret}
+
+
+
+Definition at line 22 of file malloc.\+c.
+

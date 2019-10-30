@@ -25,6 +25,8 @@ int ret;
 /**
  * The block_hdr struct represents the structure of the block header.
  *
+ * @showrefby
+ *
  * A block header stores additional information about the newly allocated block.
  * Part of this information helps to keep the track of the block size so that
  * free and realloc can work properly.
@@ -47,6 +49,8 @@ typedef block_hdr *Block_hdr;
 
 /**
  * Function first_fit_block_algo returns unallocated block of the size.
+ *
+ * @showrefby
  *
  * Traverse all blocks and return first unallocated block that satisfies size
  * requirement. It takes care to allocate extra space needed for the block
@@ -79,6 +83,8 @@ void *first_fit_block_algo(int size) {
 /**
  * Checks if last block satisfied memory requirement
  *
+ * @showrefby
+ *
  * Note: Ideally should be called after requesting more memory
  * as newly created arena will be added to tail of blocks
  * Returns header of the tail block if the tail block has space and is
@@ -102,6 +108,8 @@ void *failsafe_check_tail_block(int size) {
 
 /**
  * Merge adjacent unallocated blocks
+ *
+ * @showrefby
  *
  * Merges all the adjacent unused "freed" memory. This way larger blocks of
  * memory are now available.
@@ -128,6 +136,8 @@ void merge_adjacent_blocks_algo(void *ptr) {
 
 /**
  * Request more heap memory by incrementing program break
+ *
+ * @showrefby
  *
  * Program break represents the first location after the end of the
  * uninitialized data segment. sbrk is a system call which increases/decreases
@@ -157,6 +167,8 @@ int request_memory() {
 /**
  * Allocate memory from given block. Mark block
  * as allocated and break it into a new unallocated block
+ *
+ * @showrefby
  */
 void *malloc_mem(void *block, int size) {
 
@@ -188,6 +200,8 @@ void *malloc_mem(void *block, int size) {
 /**
  * Intializes global variables and block finding algorithm
  *
+ * @showrefby
+ *
  * Note Currently only supports "first_fit_block_algo",
  * if function is passed invalid function name returns with -1
  */
@@ -209,6 +223,8 @@ int init_malloc(char *algo_name) {
 
 /**
  * Tries to allocate memory of given size
+ *
+ * @showrefby
  *
  * returns pointer to memory if successful else
  * returns NULL
@@ -236,6 +252,8 @@ void *tmalloc(int size) {
 /**
  * Frees given block
  * Note: fails silently
+ *
+ * @showrefby
  *
  * @param[in] ptr Pointer to the block that needs to be freed
  */

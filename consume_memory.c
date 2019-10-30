@@ -7,6 +7,8 @@
 
 /**
  * This enum represents the bias for allocate
+ *
+ * @showrefby
  */
 typedef enum operation {
   ALLOCATE,
@@ -29,6 +31,8 @@ int allocate_size[] = {
 
 /**
  * Randomly creates and frees memory using tmalloc untill it fails.
+ *
+ * @showrefby
  *
  * After calling tmalloc for random number of bytes, it stores the pointer to
  * the newly created memory in llist. The program ends when tmalloc fails to

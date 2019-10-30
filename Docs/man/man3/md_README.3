@@ -1,0 +1,118 @@
+.TH "md_README" 3 "Wed Oct 30 2019" "tinker-userspace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+md_README \- Tinker Userspace 
+In tinker-userspace you explore user space libraries you use and abuse but take for granted\&. user space libraries perform a lot of the heavy lifting for you and bridge the gap between sophisticated kernel calls and clean user-friendly APIs\&. You try to implement some functionality and in the process learn something about it, Linux kernels, computers and life\&.
+.SH "User space no kernel space no user space"
+.PP
+\fIYou:\fP Just what the hell is this, I came here to write code? \fITinker:\fP User code runs in user space\&. Kernel code runs in kernel space\&.
+.PP
+\fIYou:\fP That didn't help\&. \fITinker:\fP I know\&. So let's clear up something\&. Linux is the kernel and Ubuntu is the operating system (OS)\&. The kernel contains code that interacts directly with the hardware like when you plugin your keyboard kernel code detects the device\&. Most of the applications that come installed with your application run in the user space\&. Nautilus your file browser, Firefox your web browser, Vim your text editor and your cracked game all run in user space\&.
+.PP
+\fIYou:\fP Where did space come into running code? \fITinker:\fP Here space refers to memory\&. User space is the region of memory where user code executes\&. It also refers to the privilege level of the code where kernel space has more privilege\&.
+.PP
+\fIYou:\fP So code means process, so a process runs in one space or the other? \fITinker:\fP Not exactly\&. the same process can switch between kernel mode and user mode depending on the code it is running\&. For e\&.g\&. \fCprintf\fP is \fCsophisticated wrapper\fP around the \fCwrite\fP kernel call\&. When you call \fCprintf\fP in user space it calls \fCwrite\fP kernel call internally\&. \fCwrite\fP executes in kernel space, does whatever it needs to and then returns to user space\&.
+.PP
+\fIYou:\fP Higher priviledges kernel code thinks it's special? \fITinker:\fP Kernel code interacts with hardware and it wants to feel secure that it is doing something important, because it is\&. Priviledges are way to make sure other process can't meddle with its operations\&. Try this \fCps -lp 1\fP, it's the systemd process which is the first process to startup\&. Now try \fCps -o user= -p 1\fP, see systemd executes in root to perform \fCits duties\fP\&.
+.PP
+\fIYou:\fP Awesome so I can use \fCsudo\fP to change kernel code? \fITinker:\fP Finally you get it, try \fCsudo rm -rf /\fP\&. \fIDONT\fP\&. Super User DO (\fCsudo\fP) means you can run commands with escalated privileges, to modify settings or install packages etc\&. To change kernel code you can \fChot-load your own module\fP into the kernel or modify the source code of the kernel and \fCcompile it yourself\fP\&.
+.PP
+\fIYou:\fP Mmmmm, I want more \fITinker:\fP \fClink\fP
+.PP
+\fIYou:\fP Not enough \fITinker:\fP \fClink\fP
+.SH "Exploring <tt>malloc</tt>"
+.PP
+\fITinker:\fP Now that you are primed let's dig into \fCmalloc\fP\&. You use it to allocate a block of memory\&. But do you know how it works, what goes on behind the scenes?
+.PP
+\fIYou:\fP Psshh, I know what \fCmalloc\fP is it's a system call\&. I pass it the number of bytes and it gives me a pointer to the memory block\&. And let me tell you something else\&. I know \fCfree\fP as well\&. I give it a block of memory and it gives it back to OS\&. \fClink\fP\&.
+.PP
+\fITinker:\fP Ummm actually \fCmalloc\fP is \fCnot a system call\fP and \fCfree\fP \fCdoesn't always return memory\fP to the OS\&.
+.PP
+\fIYou:\fP Say what?!
+.PP
+\fITinker:\fP So \fCmalloc\fP just like \fCprintf\fP is actually a wrapper on the \fCsbrk\fP and \fCmmap\fP system call (depending on the usage)\&. \fCmalloc\fP is just another userspace code implemented in the glibc library that you can use when you \fC#include <stdlib\&.h>\fP\&. System calls should be used sparingly, so malloc does a lot of in-house memory management so when you \fCfree\fP mem \&.\&.\&.\&.
+.PP
+\fIYou:\fP Whoooaaa \fCmalloc\fP manages memory\&. But\&.\&. doesn't that mean it will need data structures and algorithms and take a lot of time and consume a lot of memory\&.
+.PP
+\fITinker:\fP \&.\&.\&. Exactly and that's what you'll explore by trying to implement something like \fCmalloc\fP\&. As I was saying \fCfree\fP actually returns memory to the \fCmalloc\fP code\&. \fCmalloc\fP adds this to its list of unused memory and very rarely it actually returns memory to the OS\&.
+.SH "Finally the code"
+.PP
+.RS 4
+\fCtmalloc\&.c\fP 
+.RE
+.PP
+This your wannabe \fCmalloc\fP implementation\&. It has three public APIs namely,
+.IP "\(bu" 2
+\fCinit_tmalloc\fP to choose the algorithms
+.IP "\(bu" 2
+\fCtmalloc\fP shows same behaviour as \fCmalloc\fP
+.IP "\(bu" 2
+\fCtfree\fP shows same behaviour as \fCfree\fP
+.PP
+.PP
+.RS 4
+\fC\fBconsume_memory\&.c\fP\fP 
+.RE
+.PP
+This is a user program\&. It asks for memory uses it and frees it\&. A random number generator (RNG) is used to decide whether to allocate or free memory\&. The RNG also decides the amount of memory to allocate\&. Your \fCtmalloc\fP will be benchmarked on this program\&.
+.SH "Instructions"
+.PP
+Ideally you should be using an OS with the latest kernel version\&. 
+.PP
+.nf
+gcc request_memory\&.c
+ulimit -S -v 10240
+\&./a\&.out
+ulimit -S -v unlimited
+
+.fi
+.PP
+.PP
+.PP
+.nf
+gcc malloc\&.c
+ulimit -S -v 10240
+\&./a\&.out
+ulimit -S -v unlimited
+.fi
+.PP
+.SH "Measure performance"
+.PP
+The \fC\fBconsume_memory\&.c\fP\fP script behaves like a user program\&. It asks for memory and frees it\&. A random number generator (RNG) is used to decide whether to allocate or free memory\&. The RNG also decides the amount of memory to allocate\&.
+.PP
+Just like \fCmalloc\fP, \fCtmalloc\fP fails when it cannot successfully allocate the requested amount of memory\&. This can happen when there is no continous free block of the requested size or the program has reached memory limit\&. On failure \fCtmalloc\fP returns \fCNULL\fP\&. The number of operations performed before \fCtmalloc\fP fails is used as a measure of how well it is managing the memory\&.
+.PP
+You pit your implementation of malloc with the standard library implementation to see which performs better\&.
+.SH "Using the best list implementation"
+.PP
+\fClinux/llist\&.h\fP
+.SH "References"
+.PP
+.IP "\(bu" 2
+\fCdifference between kernel space and userspace\fP
+.IP "\(bu" 2
+\fCrestricting heap memory\fP
+.IP "\(bu" 2
+\fCulimit man page\fP
+.IP "\(bu" 2
+\fClimit virtual memory for program\fP
+.IP "\(bu" 2
+\fCsyscalls used by malloc\fP
+.PP
+.SH "TODO"
+.PP
+.IP "\(bu" 2
+\fCExplain Stack vs Heap to explain the role of malloc\fP
+.IP "\(bu" 2
+\fCconsidering overcommit\fP
+.IP "\(bu" 2
+\fCMalloc source code\fP
+.IP "\(bu" 2
+\fCGood malloc\fP
+.IP "\(bu" 2
+\fCUnderstanding malloc\fP
+.IP "\(bu" 2
+\fCUnderstanding sbrk\fP 
+.PP
+

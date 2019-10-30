@@ -1,0 +1,226 @@
+.TH "malloc.c" 3 "Wed Oct 30 2019" "tinker-userspace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+malloc.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <errno\&.h>\fP
+.br
+\fC#include <stdbool\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <sys/mman\&.h>\fP
+.br
+\fC#include <sys/types\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include 'llist\&.h'\fP
+.br
+\fC#include 'malloc\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBblock_hdr\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_DEFAULT_SOURCE\fP"
+.br
+.ti -1c
+.RI "#define \fBINCREMENT\fP   4096"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBblock_hdr\fP \fBblock_hdr\fP"
+.br
+.ti -1c
+.RI "typedef \fBblock_hdr\fP * \fBBlock_hdr\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLL_HEAD\fP (head)"
+.br
+.ti -1c
+.RI "void * \fBfirst_fit_block_algo\fP (int size)"
+.br
+.ti -1c
+.RI "void * \fBfailsafe_check_tail_block\fP (int size)"
+.br
+.ti -1c
+.RI "void \fBmerge_adjacent_blocks_algo\fP (void *ptr)"
+.br
+.ti -1c
+.RI "int \fBrequest_memory\fP ()"
+.br
+.ti -1c
+.RI "void * \fBmalloc_mem\fP (void *block, int size)"
+.br
+.ti -1c
+.RI "int \fBinit_malloc\fP (char *algo_name)"
+.br
+.ti -1c
+.RI "void * \fBtmalloc\fP (int size)"
+.br
+.ti -1c
+.RI "void \fBtfree\fP (void *ptr)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "void *(* \fBmem_block_algo\fP )(int)"
+.br
+.ti -1c
+.RI "void *(* \fBfailsafe_block_algo\fP )(int)"
+.br
+.ti -1c
+.RI "void(* \fBdefrag_block_algo\fP )(void *)"
+.br
+.ti -1c
+.RI "int \fBret\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define _DEFAULT_SOURCE"
+
+.PP
+Definition at line 1 of file malloc\&.c\&.
+.SS "#define INCREMENT   4096"
+
+.PP
+Definition at line 14 of file malloc\&.c\&.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBblock_hdr\fP  \fBblock_hdr\fP"
+The \fBblock_hdr\fP struct represents the structure of the block header\&.
+.PP
+A block header stores additional information about the newly allocated block\&. Part of this information helps to keep the track of the block size so that free and realloc can work properly\&. 
+.PP
+\fBSee also\fP
+.RS 4
+https://stackoverflow.com/questions/7717296/malloc-header-contents 
+.RE
+.PP
+
+.SS "typedef \fBblock_hdr\fP* \fBBlock_hdr\fP"
+
+.PP
+Definition at line 42 of file malloc\&.c\&.
+.SH "Function Documentation"
+.PP 
+.SS "void* failsafe_check_tail_block (int size)"
+Checks if last block satisfied memory requirement
+.PP
+Note: Ideally should be called after requesting more memory as newly created arena will be added to tail of blocks Returns header of the tail block if the tail block has space and is unallocated, else returns NULL 
+.PP
+Definition at line 92 of file malloc\&.c\&.
+.SS "void* first_fit_block_algo (int size)"
+Function first_fit_block_algo returns unallocated block of the size\&.
+.PP
+Traverse all blocks and return first unallocated block that satisfies size requirement\&. It takes care to allocate extra space needed for the block header\&. Returns NULL on failing
+.PP
+\fBParameters\fP
+.RS 4
+\fIsize\fP The amount of size in bytes that is needed (Excluding the size of the header) 
+.RE
+.PP
+
+.PP
+Definition at line 61 of file malloc\&.c\&.
+.SS "int init_malloc (char * algo_name)"
+Intializes global variables and block finding algorithm
+.PP
+Note Currently only supports 'first_fit_block_algo', if function is passed invalid function name returns with -1 
+.PP
+Definition at line 206 of file malloc\&.c\&.
+.PP
+Referenced by main()\&.
+.SS "LL_HEAD (head)"
+
+.SS "void* malloc_mem (void * block, int size)"
+Allocate memory from given block\&. Mark block as allocated and break it into a new unallocated block 
+.PP
+Definition at line 172 of file malloc\&.c\&.
+.SS "void merge_adjacent_blocks_algo (void * ptr)"
+Merge adjacent unallocated blocks
+.PP
+Merges all the adjacent unused 'freed' memory\&. This way larger blocks of memory are now available\&. 
+.PP
+Definition at line 116 of file malloc\&.c\&.
+.SS "int request_memory ()"
+Request more heap memory by incrementing program break
+.PP
+Program break represents the first location after the end of the uninitialized data segment\&. sbrk is a system call which increases/decreases the amount of allocated memory 
+.PP
+\fBSee also\fP
+.RS 4
+https://en.wikipedia.org/wiki/Sbrk 
+.PP
+{https://stackoverflow.com/questions/6988487/what-does-the-brk-system-call-do} 
+.RE
+.PP
+
+.PP
+Definition at line 148 of file malloc\&.c\&.
+.SS "void tfree (void * ptr)"
+Frees given block Note: fails silently
+.PP
+\fBParameters\fP
+.RS 4
+\fIptr\fP Pointer to the block that needs to be freed 
+.RE
+.PP
+
+.PP
+Definition at line 258 of file malloc\&.c\&.
+.PP
+Referenced by main()\&.
+.SS "void* tmalloc (int size)"
+Tries to allocate memory of given size
+.PP
+returns pointer to memory if successful else returns NULL 
+.PP
+Definition at line 230 of file malloc\&.c\&.
+.PP
+Referenced by main()\&.
+.SH "Variable Documentation"
+.PP 
+.SS "void(* defrag_block_algo) (void *)"
+
+.PP
+Definition at line 21 of file malloc\&.c\&.
+.SS "void*(* failsafe_block_algo) (int)"
+
+.PP
+Definition at line 19 of file malloc\&.c\&.
+.SS "void*(* mem_block_algo) (int)"
+
+.PP
+Definition at line 18 of file malloc\&.c\&.
+.SS "int ret"
+
+.PP
+Definition at line 22 of file malloc\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for tinker-userspace from the source code\&.
