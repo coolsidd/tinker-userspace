@@ -1,0 +1,133 @@
+\hypertarget{consume__memory_8c}{}\doxysection{consume\+\_\+memory.\+c File Reference}
+\label{consume__memory_8c}\index{consume\_memory.c@{consume\_memory.c}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}llist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}malloc.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{consume__memory_8c_a3e1dbd3b15e1a9e2345287ac860672b9}{A\+L\+L\+O\+C\+A\+T\+E\+\_\+\+I\+T\+E\+MS}}~3
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692}{operation}} \mbox{\hyperlink{consume__memory_8c_a212ec32a7d0bab700be3e65886850b37}{operation}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692}{operation}} \{ \newline
+\mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692a0cf8ae02d433c3b07468f0f04ce194c2}{A\+L\+L\+O\+C\+A\+TE}}, 
+\mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692ae54f270689a87377936a53b8d7c6aa9c}{M\+O\+R\+E\+\_\+\+A\+L\+L\+O\+C\+A\+TE}}, 
+\mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692ad138f5cd73ca6676cbc714bcfa828cc0}{A\+L\+L\+O\+C\+A\+T\+E\+\_\+\+M\+O\+RE}}, 
+\mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692acc62d1576546f3245237e1b232d838b6}{F\+R\+EE}}, 
+\newline
+\mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692a0a243a5c27911ab7541def214ab88515}{N\+U\+M\+\_\+\+O\+PS}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{consume__memory_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{consume__memory_8c_a9ceccd74ca37ea3e274112d57d2c246b}{allocate\+\_\+size}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{consume__memory_8c_a3e1dbd3b15e1a9e2345287ac860672b9}\label{consume__memory_8c_a3e1dbd3b15e1a9e2345287ac860672b9}} 
+\index{consume\_memory.c@{consume\_memory.c}!ALLOCATE\_ITEMS@{ALLOCATE\_ITEMS}}
+\index{ALLOCATE\_ITEMS@{ALLOCATE\_ITEMS}!consume\_memory.c@{consume\_memory.c}}
+\doxysubsubsection{\texorpdfstring{ALLOCATE\_ITEMS}{ALLOCATE\_ITEMS}}
+{\footnotesize\ttfamily \#define A\+L\+L\+O\+C\+A\+T\+E\+\_\+\+I\+T\+E\+MS~3}
+
+
+
+Definition at line 21 of file consume\+\_\+memory.\+c.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{consume__memory_8c_a212ec32a7d0bab700be3e65886850b37}\label{consume__memory_8c_a212ec32a7d0bab700be3e65886850b37}} 
+\index{consume\_memory.c@{consume\_memory.c}!operation@{operation}}
+\index{operation@{operation}!consume\_memory.c@{consume\_memory.c}}
+\doxysubsubsection{\texorpdfstring{operation}{operation}}
+{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692}{operation}}  \mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692}{operation}}}
+
+This enum represents the bias for allocate 
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692}\label{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692}} 
+\index{consume\_memory.c@{consume\_memory.c}!operation@{operation}}
+\index{operation@{operation}!consume\_memory.c@{consume\_memory.c}}
+\doxysubsubsection{\texorpdfstring{operation}{operation}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692}{operation}}}
+
+This enum represents the bias for allocate \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALLOCATE@{ALLOCATE}!consume\_memory.c@{consume\_memory.c}}\index{consume\_memory.c@{consume\_memory.c}!ALLOCATE@{ALLOCATE}}}\mbox{\Hypertarget{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692a0cf8ae02d433c3b07468f0f04ce194c2}\label{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692a0cf8ae02d433c3b07468f0f04ce194c2}} 
+A\+L\+L\+O\+C\+A\+TE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MORE\_ALLOCATE@{MORE\_ALLOCATE}!consume\_memory.c@{consume\_memory.c}}\index{consume\_memory.c@{consume\_memory.c}!MORE\_ALLOCATE@{MORE\_ALLOCATE}}}\mbox{\Hypertarget{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692ae54f270689a87377936a53b8d7c6aa9c}\label{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692ae54f270689a87377936a53b8d7c6aa9c}} 
+M\+O\+R\+E\+\_\+\+A\+L\+L\+O\+C\+A\+TE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALLOCATE\_MORE@{ALLOCATE\_MORE}!consume\_memory.c@{consume\_memory.c}}\index{consume\_memory.c@{consume\_memory.c}!ALLOCATE\_MORE@{ALLOCATE\_MORE}}}\mbox{\Hypertarget{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692ad138f5cd73ca6676cbc714bcfa828cc0}\label{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692ad138f5cd73ca6676cbc714bcfa828cc0}} 
+A\+L\+L\+O\+C\+A\+T\+E\+\_\+\+M\+O\+RE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FREE@{FREE}!consume\_memory.c@{consume\_memory.c}}\index{consume\_memory.c@{consume\_memory.c}!FREE@{FREE}}}\mbox{\Hypertarget{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692acc62d1576546f3245237e1b232d838b6}\label{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692acc62d1576546f3245237e1b232d838b6}} 
+F\+R\+EE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUM\_OPS@{NUM\_OPS}!consume\_memory.c@{consume\_memory.c}}\index{consume\_memory.c@{consume\_memory.c}!NUM\_OPS@{NUM\_OPS}}}\mbox{\Hypertarget{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692a0a243a5c27911ab7541def214ab88515}\label{consume__memory_8c_ad34e7fb3c33543e9f3a1e48486fa7692a0a243a5c27911ab7541def214ab88515}} 
+N\+U\+M\+\_\+\+O\+PS&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 13 of file consume\+\_\+memory.\+c.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{consume__memory_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{consume__memory_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{consume\_memory.c@{consume\_memory.c}!main@{main}}
+\index{main@{main}!consume\_memory.c@{consume\_memory.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Randomly creates and frees memory using tmalloc untill it fails.
+
+After calling tmalloc for random number of bytes, it stores the pointer to the newly created memory in llist. The program ends when tmalloc fails to allocate the random amount of memory. 
+
+Definition at line 41 of file consume\+\_\+memory.\+c.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{consume__memory_8c_a9ceccd74ca37ea3e274112d57d2c246b}\label{consume__memory_8c_a9ceccd74ca37ea3e274112d57d2c246b}} 
+\index{consume\_memory.c@{consume\_memory.c}!allocate\_size@{allocate\_size}}
+\index{allocate\_size@{allocate\_size}!consume\_memory.c@{consume\_memory.c}}
+\doxysubsubsection{\texorpdfstring{allocate\_size}{allocate\_size}}
+{\footnotesize\ttfamily int allocate\+\_\+size\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }\mbox{\hyperlink{structllhead}{llhead}}) + 4, }
+\DoxyCodeLine{    sizeof(struct \mbox{\hyperlink{structllhead}{llhead}}) + 8, }
+\DoxyCodeLine{    sizeof(struct \mbox{\hyperlink{structllhead}{llhead}}) + 16 }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+Stores possible next allocation sizes in bytes. 
+
+Definition at line 26 of file consume\+\_\+memory.\+c.
+

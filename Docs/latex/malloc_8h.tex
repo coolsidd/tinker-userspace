@@ -1,0 +1,67 @@
+\hypertarget{malloc_8h}{}\doxysection{malloc.\+h File Reference}
+\label{malloc_8h}\index{malloc.h@{malloc.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{malloc_8h_a57c463580b2de9f174a5f29ac80c818f}{init\+\_\+malloc}} (char $\ast$\mbox{\hyperlink{malloc_8c_afdbe0bbaf34557d7845ce61ab9ab4850}{mem\+\_\+block\+\_\+algo}})
+\item 
+void $\ast$ \mbox{\hyperlink{malloc_8h_a1e80be378b66b2fea0acbde8de321efe}{tmalloc}} (int size)
+\item 
+void \mbox{\hyperlink{malloc_8h_a60eba9c55074c811f5d17417df218f85}{tfree}} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{malloc_8h_a57c463580b2de9f174a5f29ac80c818f}\label{malloc_8h_a57c463580b2de9f174a5f29ac80c818f}} 
+\index{malloc.h@{malloc.h}!init\_malloc@{init\_malloc}}
+\index{init\_malloc@{init\_malloc}!malloc.h@{malloc.h}}
+\doxysubsubsection{\texorpdfstring{init\_malloc()}{init\_malloc()}}
+{\footnotesize\ttfamily int init\+\_\+malloc (\begin{DoxyParamCaption}\item[{char $\ast$}]{algo\+\_\+name }\end{DoxyParamCaption})}
+
+Intializes global variables and block finding algorithm
+
+Note Currently only supports \char`\"{}first\+\_\+fit\+\_\+block\+\_\+algo\char`\"{}, if function is passed invalid function name returns with -\/1 
+
+Definition at line 206 of file malloc.\+c.
+
+
+
+Referenced by main().
+
+\mbox{\Hypertarget{malloc_8h_a60eba9c55074c811f5d17417df218f85}\label{malloc_8h_a60eba9c55074c811f5d17417df218f85}} 
+\index{malloc.h@{malloc.h}!tfree@{tfree}}
+\index{tfree@{tfree}!malloc.h@{malloc.h}}
+\doxysubsubsection{\texorpdfstring{tfree()}{tfree()}}
+{\footnotesize\ttfamily void tfree (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+Frees given block Note\+: fails silently
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ptr} & Pointer to the block that needs to be freed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 258 of file malloc.\+c.
+
+
+
+Referenced by main().
+
+\mbox{\Hypertarget{malloc_8h_a1e80be378b66b2fea0acbde8de321efe}\label{malloc_8h_a1e80be378b66b2fea0acbde8de321efe}} 
+\index{malloc.h@{malloc.h}!tmalloc@{tmalloc}}
+\index{tmalloc@{tmalloc}!malloc.h@{malloc.h}}
+\doxysubsubsection{\texorpdfstring{tmalloc()}{tmalloc()}}
+{\footnotesize\ttfamily void$\ast$ tmalloc (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
+
+Tries to allocate memory of given size
+
+returns pointer to memory if successful else returns N\+U\+LL 
+
+Definition at line 230 of file malloc.\+c.
+
+
+
+Referenced by main().
+

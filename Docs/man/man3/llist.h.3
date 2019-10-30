@@ -1,0 +1,118 @@
+.TH "llist.h" 3 "Wed Oct 30 2019" "tinker-userspace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+llist.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBllhead\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBLL_INIT\fP(N)   ((N)\->next = (N)\->prev = (N))"
+.br
+.ti -1c
+.RI "#define \fBLL_HEAD\fP(H)   struct \fBllhead\fP H = { &H, &H }"
+.br
+.ti -1c
+.RI "#define \fBLL_ENTRY\fP(P,  T,  N)   ((T *)((char *)(P) \- offsetof(T, N)))"
+.br
+.ti -1c
+.RI "#define \fBLL_ADD\fP(H,  N)"
+.br
+.ti -1c
+.RI "#define \fBLL_TAIL\fP(H,  N)"
+.br
+.ti -1c
+.RI "#define \fBLL_DEL\fP(N)"
+.br
+.ti -1c
+.RI "#define \fBLL_EMPTY\fP(N)   ((N)\->next == (N))"
+.br
+.ti -1c
+.RI "#define \fBLL_FOREACH\fP(H,  N)   for (N = (H)\->next; N != (H); N = (N)\->next)"
+.br
+.ti -1c
+.RI "#define \fBLL_FOREACH_SAFE\fP(H,  N,  T)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define LL_ADD(H, N)"
+\fBValue:\fP
+.PP
+.nf
+do {                               \
+        ((H)->next)->prev = (N);                \
+        (N)->next = ((H)->next);                \
+        (N)->prev = (H);                    \
+        (H)->next = (N);                    \
+    } while (0)
+.fi
+.PP
+Definition at line 28 of file llist\&.h\&.
+.SS "#define LL_DEL(N)"
+\fBValue:\fP
+.PP
+.nf
+do {                               \
+        ((N)->next)->prev = ((N)->prev);            \
+        ((N)->prev)->next = ((N)->next);            \
+        LL_INIT(N);                     \
+    } while (0)
+.fi
+.PP
+Definition at line 44 of file llist\&.h\&.
+.SS "#define LL_EMPTY(N)   ((N)\->next == (N))"
+
+.PP
+Definition at line 51 of file llist\&.h\&.
+.SS "#define LL_ENTRY(P, T, N)   ((T *)((char *)(P) \- offsetof(T, N)))"
+
+.PP
+Definition at line 26 of file llist\&.h\&.
+.SS "#define LL_FOREACH(H, N)   for (N = (H)\->next; N != (H); N = (N)\->next)"
+
+.PP
+Definition at line 53 of file llist\&.h\&.
+.SS "#define LL_FOREACH_SAFE(H, N, T)"
+\fBValue:\fP
+.PP
+.nf
+for (N = (H)->next, T = (N)->next; N != (H);         \
+            N = (T), T = (N)->next)
+.fi
+.PP
+Definition at line 55 of file llist\&.h\&.
+.SS "#define LL_HEAD(H)   struct \fBllhead\fP H = { &H, &H }"
+
+.PP
+Definition at line 24 of file llist\&.h\&.
+.SS "#define LL_INIT(N)   ((N)\->next = (N)\->prev = (N))"
+
+.PP
+Definition at line 22 of file llist\&.h\&.
+.SS "#define LL_TAIL(H, N)"
+\fBValue:\fP
+.PP
+.nf
+do {                                \
+        ((H)->prev)->next = (N);                \
+        (N)->prev = ((H)->prev);                \
+        (N)->next = (H);                    \
+        (H)->prev = (N);                    \
+    } while (0)
+.fi
+.PP
+Definition at line 36 of file llist\&.h\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for tinker-userspace from the source code\&.

@@ -1,0 +1,55 @@
+.TH "malloc.h" 3 "Wed Oct 30 2019" "tinker-userspace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+malloc.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBinit_malloc\fP (char *\fBmem_block_algo\fP)"
+.br
+.ti -1c
+.RI "void * \fBtmalloc\fP (int size)"
+.br
+.ti -1c
+.RI "void \fBtfree\fP (void *ptr)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int init_malloc (char * algo_name)"
+Intializes global variables and block finding algorithm
+.PP
+Note Currently only supports 'first_fit_block_algo', if function is passed invalid function name returns with -1 
+.PP
+Definition at line 206 of file malloc\&.c\&.
+.PP
+Referenced by main()\&.
+.SS "void tfree (void * ptr)"
+Frees given block Note: fails silently
+.PP
+\fBParameters\fP
+.RS 4
+\fIptr\fP Pointer to the block that needs to be freed 
+.RE
+.PP
+
+.PP
+Definition at line 258 of file malloc\&.c\&.
+.PP
+Referenced by main()\&.
+.SS "void* tmalloc (int size)"
+Tries to allocate memory of given size
+.PP
+returns pointer to memory if successful else returns NULL 
+.PP
+Definition at line 230 of file malloc\&.c\&.
+.PP
+Referenced by main()\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for tinker-userspace from the source code\&.

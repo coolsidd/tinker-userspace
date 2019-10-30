@@ -1,0 +1,109 @@
+.TH "consume_memory.c" 3 "Wed Oct 30 2019" "tinker-userspace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+consume_memory.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdbool\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include 'llist\&.h'\fP
+.br
+\fC#include 'malloc\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBALLOCATE_ITEMS\fP   3"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef enum \fBoperation\fP \fBoperation\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBoperation\fP { \fBALLOCATE\fP, \fBMORE_ALLOCATE\fP, \fBALLOCATE_MORE\fP, \fBFREE\fP, \fBNUM_OPS\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBallocate_size\fP []"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define ALLOCATE_ITEMS   3"
+
+.PP
+Definition at line 21 of file consume_memory\&.c\&.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef enum \fBoperation\fP  \fBoperation\fP"
+This enum represents the bias for allocate 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBoperation\fP"
+This enum represents the bias for allocate 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIALLOCATE \fP\fP
+.TP
+\fB\fIMORE_ALLOCATE \fP\fP
+.TP
+\fB\fIALLOCATE_MORE \fP\fP
+.TP
+\fB\fIFREE \fP\fP
+.TP
+\fB\fINUM_OPS \fP\fP
+.PP
+Definition at line 13 of file consume_memory\&.c\&.
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char * argv[])"
+Randomly creates and frees memory using tmalloc untill it fails\&.
+.PP
+After calling tmalloc for random number of bytes, it stores the pointer to the newly created memory in llist\&. The program ends when tmalloc fails to allocate the random amount of memory\&. 
+.PP
+Definition at line 41 of file consume_memory\&.c\&.
+.SH "Variable Documentation"
+.PP 
+.SS "int allocate_size[]"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+    sizeof(struct llhead) + 4, 
+    sizeof(struct llhead) + 8, 
+    sizeof(struct llhead) + 16 
+}
+.fi
+Stores possible next allocation sizes in bytes\&. 
+.PP
+Definition at line 26 of file consume_memory\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for tinker-userspace from the source code\&.
